@@ -1,0 +1,24 @@
+---
+- name: Patch Windows Servers
+  hosts: windows
+  tasks:
+    - name: Gather facts about Windows servers
+      win_feature:
+        name: "AS-HTTP-Activation"
+        state: present
+
+    - name: Check for available updates
+      win_updates:
+        category_names: ['SecurityUpdates', 'CriticalUpdates']
+        state: searched
+      register: update_result
+
+    - name: Install available updates
+      win_updates:
+        category_names: ['SecurityUpdates', 'CriticalUpdates']
+        state: installed
+      register: install_result
+
+    - name: Reboot the server if required
+      win_reboot:
+      when: install_result.reboot_required
