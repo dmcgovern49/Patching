@@ -1,11 +1,8 @@
----
-- name: Patch Windows Servers
+- name:  Windows Update
   hosts: Windows-Server
+  gather_facts: false
   tasks:
-    - name: Install all security, critical, and rollup updates without a scheduled task
-      ansible.windows.win.updates:
-        category_names:
-          - SecurityUpdates
-          - CriticalUpdates
-          - UpdateRollups
-   
+    - name: Running Windows Update
+      win_updates:
+        category_names: ['SecurityUpdates','CriticalUpdates','UpdateRollups', 'Updates', 'DefinitionUpdates']
+        reboot: yes
