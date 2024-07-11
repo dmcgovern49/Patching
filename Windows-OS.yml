@@ -10,7 +10,7 @@
 #ansible-playbook apply_windows_updates.yml --tags install,reboot
 
 - name: Apply windows updates
-  hosts: windows_systems
+  hosts: Windows-Server
   gather_facts: yes
   vars:
     initial_reboot: |-
