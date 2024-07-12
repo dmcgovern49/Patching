@@ -1,0 +1,22 @@
+- name: "Chocolatey"
+  hosts: windows-server
+
+  tasks:
+  - name: Install chocolatey
+    win_chocolatey:
+      name:
+      - chocolatey
+      - chocolatey-core.extension
+      state: present
+
+  - name: Kill running Chrome processes
+    win_shell: 
+        Stop-Process -Name "chrome" -Force
+    ignore_errors: yes
+
+  - name: Install chocolatey
+    win_chocolatey:
+      name:
+      - googlechrome
+      state: latest
+      ignore_checksums: yes
