@@ -1,5 +1,7 @@
-- name: "Chocolatey"
+---
+- name: Install chocolatey and chrome
   hosts: windows-server
+  gather_facts: yes
 
   tasks:
   - name: Install chocolatey
