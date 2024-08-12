@@ -11,11 +11,6 @@
       - chocolatey-core.extension
       state: present
 
-  - name: Kill running Chrome processes
-    win_shell: 
-        Stop-Process -Name "chrome" -Force
-    ignore_errors: yes
-
   - name: Install chocolatey
     win_chocolatey:
       name:
