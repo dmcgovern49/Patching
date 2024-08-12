@@ -1,6 +1,6 @@
 ---
 - name: Install chocolatey and chrome
-  hosts: windows-server
+  hosts: Windows-Server
   gather_facts: yes
 
   tasks:
