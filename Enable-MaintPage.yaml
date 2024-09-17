@@ -1,9 +1,13 @@
 ---
 - name: Start EC2
   hosts: localhost
-  gather_facts: no
-  connection: localhost
-  
+  connection: local
+
   tasks:
     - name: Start Maintenance Page Server
-      ansible.builtin.shell: aws ec2 start-instances --instance-ids "i-0a1bd6791ea0e4432" --region "us-east-2"
+      amazon.aws.ec2:
+        region: "us-east-1"
+        instance_ids:
+          - "i-0a1bd6791ea0e4432"
+        state: started
+      when: ec2_info.instances[0].state.name == 'stopped'
