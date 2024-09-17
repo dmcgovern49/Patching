@@ -1,0 +1,9 @@
+---
+- name: Start EC2
+  hosts: localhost
+  gather_facts: no
+  connection: localhost
+
+  tasks:
+    - name: Start Maintenance Page Server
+      ansible.builtin.shell: aws ec2 start-instances --instance-ids "i-0a1bd6791ea0e4432" --region "us-east-1"
