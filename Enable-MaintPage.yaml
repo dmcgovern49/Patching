@@ -4,27 +4,6 @@
   gather_facts: no
   connection: localhost
   
-- name: Install package dependencies.
-  package: name={{ item }} state=present
-  with_items:
-    - python
-    - unzip
-
-- name: Download the awscli bundle.
-  get_url: url=https://s3.amazonaws.com/aws-cli/awscli-bundle.zip dest=/tmp/awscli-bundle.zip
-  register: aws_cli_download_bundle
-
-- name: Unarchive the installer.
-  unarchive: src=/tmp/awscli-bundle.zip dest=/tmp copy=no creates=/tmp/awscli-bundle
-  when: aws_cli_download_bundle.changed
-  register: aws_cli_unarchive_installer
-
-- name: Install awscli package.
-  shell: python /tmp/awscli-bundle/install -i /usr/local/aws -b /usr/bin/aws
-  args:
-    creates: /usr/bin/aws
-  when: aws_cli_unarchive_installer.changed
-
   tasks:
     - name: Start Maintenance Page Server
-      ansible.builtin.shell: aws ec2 start-instances --instance-ids "i-0a1bd6791ea0e4432" --region "us-east-1"
+      ansible.builtin.shell: aws ec2 start-instances --instance-ids "i-0a1bd6791ea0e4432" --region "us-east-2"
