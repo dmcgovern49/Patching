@@ -4,18 +4,8 @@
   gather_facts: no
   tasks:
 
-    - name: Start the EC2 instance using AWS CLI
-      shell: aws ec2 start-instances --instance-ids i-0a1bd6791ea0e4432 --region us-east-2
-      register: start_instance_output
-
-    - name: Wait for the instance to enter the 'running' state
-      shell: aws ec2 wait instance-running --instance-ids i-0a1bd6791ea0e4432 --region us-east-2
-      register: wait_instance_output
-
-    - name: Print the AWS CLI output for starting instance
-      debug:
-        msg: "{{ start_instance_output.stdout }}"
-
-    - name: Print the wait instance output
-      debug:
-        msg: "Instance has started and is now in 'running' state"
+    - name: Describe instances
+      command: aws ec2 describe-instances --region us-east-1
+      environment:
+        AWS_ACCESS_KEY_ID: "{{ lookup('env','AWS_ACCESS_KEY') }}"
+        AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_KEY') }}"
