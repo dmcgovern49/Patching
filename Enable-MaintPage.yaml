@@ -1,13 +1,10 @@
 ---
-- name: Start EC2
+- name: Test
   hosts: localhost
   connection: local
 
-  tasks:
-    - name: Start Maintenance Page Server
-      amazon.aws.ec2:
-        region: "us-east-1"
-        instance_ids:
-          - "i-0a1bd6791ea0e4432"
-        state: started
-      when: ec2_info.instances[0].state.name == 'stopped'
+- name: Describe instances
+  command: aws ec2 describe-instances --region us-east-2
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ lookup('env','AWS_ACCESS_KEY') }}"
+    AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_KEY') }}"
